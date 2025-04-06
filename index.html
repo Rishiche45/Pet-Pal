@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPal Connect - Your Pet Care Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      @font-face {
+        font-family: 'LucideIcons';
+        src: url(https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf) format('truetype');
+      }
+      .lucide {
+        font-family: 'LucideIcons';
+        font-size: 1.25rem; /* Adjust size as needed */
+        line-height: 1;
+        display: inline-block; /* Important for alignment */
+        vertical-align: middle; /* Align icons nicely with text */
+      }
+      /* Basic styling for active tab */
+      .nav-link.active {
+        background-color: #4f46e5; /* Indigo-600 */
+        color: white;
+      }
+      /* Hide sections by default */
+      .app-section {
+        display: none;
+      }
+      /* Show the initially active section */
+      .app-section.active {
+        display: block;
+      }
+    </style>
+    <script>
+      // Basic configuration for Tailwind (optional, can customize theme)
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-indigo-600">
+                <span class="lucide mr-2">&#xea13;</span> PetPal Connect
+            </div>
+            <div class="hidden md:flex space-x-2">
+                <button data-target="vet-finder" class="nav-link active text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    <span class="lucide mr-1">&#xea43;</span> Vet Finder </button>
+                <button data-target="health-hub" class="nav-link text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    <span class="lucide mr-1">&#xe971;</span> Health Hub </button>
+                <button data-target="care-schedule" class="nav-link text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    <span class="lucide mr-1">&#xe8b5;</span> Care Schedule </button>
+                <button data-target="adoption" class="nav-link text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    <span class="lucide mr-1">&#xe97a;</span> Adoption </button>
+                <button data-target="store" class="nav-link text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                    <span class="lucide mr-1">&#xeaf9;</span> Store </button>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none">
+                    <span class="lucide">&#xea05;</span> </button>
+            </div>
+        </nav>
+        <div class="md:hidden hidden bg-white border-t border-gray-200 p-2 space-y-1" id="mobile-menu">
+             <button data-target="vet-finder" class="nav-link-mobile block w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium flex items-center">
+                 <span class="lucide mr-1">&#xea43;</span> Vet Finder
+             </button>
+             <button data-target="health-hub" class="nav-link-mobile block w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium flex items-center">
+                 <span class="lucide mr-1">&#xe971;</span> Health Hub
+             </button>
+             <button data-target="care-schedule" class="nav-link-mobile block w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium flex items-center">
+                 <span class="lucide mr-1">&#xe8b5;</span> Care Schedule
+             </button>
+             <button data-target="adoption" class="nav-link-mobile block w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium flex items-center">
+                 <span class="lucide mr-1">&#xe97a;</span> Adoption
+             </button>
+             <button data-target="store" class="nav-link-mobile block w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded-md text-base font-medium flex items-center">
+                 <span class="lucide mr-1">&#xeaf9;</span> Store
+             </button>
+         </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-6 lg:p-8">
+
+        <section id="vet-finder" class="app-section active bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
+                <span class="lucide mr-2 text-indigo-600">&#xea43;</span> Find a Veterinarian
+            </h2>
+            <div class="mb-4">
+                <label for="location-search" class="block text-sm font-medium text-gray-700 mb-1">Enter Location (e.g., Siliguri)</label>
+                <div class="flex rounded-md shadow-sm">
+                    <input type="text" id="location-search" class="flex-1 block w-full rounded-none rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2" placeholder="City, Area, or Pincode">
+                    <button class="inline-flex items-center px-4 py-2 border border-l-0 border-gray-300 bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-r-md">
+                        <span class="lucide">&#xeace;</span> </button>
+                </div>
+            </div>
+             <button class="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                 <span class="lucide mr-2">&#xe9fc;</span> Find Vets Near Me </button>
+
+            <div class="bg-gray-200 h-64 rounded-md mb-4 flex items-center justify-center text-gray-500">
+                Map Placeholder
+            </div>
+
+            <h3 class="text-xl font-semibold mb-3 text-gray-700">Nearby Clinics</h3>
+            <div class="space-y-4">
+                <div class="border border-gray-200 p-4 rounded-lg flex flex-col md:flex-row md:items-center md:justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <h4 class="font-semibold text-lg text-indigo-700">Dr. Anjali Sharma's Pet Clinic</h4>
+                        <p class="text-gray-600 text-sm">Sevoke Road, Siliguri</p>
+                        <p class="text-gray-500 text-sm mt-1">Specializes in small animals. Emergency services available.</p>
+                        <div class="mt-2 text-yellow-500 text-sm">★★★★☆ (45 Reviews)</div>
+                    </div>
+                    <div class="mt-3 md:mt-0 md:ml-4 flex-shrink-0">
+                        <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-2">
+                           <span class="lucide mr-1 text-xs">&#xe8b5;</span> Book Online
+                        </button>
+                         <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <span class="lucide mr-1 text-xs">&#xea1a;</span> Call Now
+                         </button>
+                    </div>
+                </div>
+                 <div class="border border-gray-200 p-4 rounded-lg flex flex-col md:flex-row md:items-center md:justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <h4 class="font-semibold text-lg text-indigo-700">Siliguri Veterinary Hospital</h4>
+                        <p class="text-gray-600 text-sm">Hill Cart Road, Siliguri</p>
+                        <p class="text-gray-500 text-sm mt-1">Comprehensive care, diagnostics, surgery.</p>
+                         <div class="mt-2 text-yellow-500 text-sm">★★★☆☆ (20 Reviews)</div>
+                    </div>
+                     <div class="mt-3 md:mt-0 md:ml-4 flex-shrink-0">
+                         <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mr-2">
+                            <span class="lucide mr-1 text-xs">&#xe8b5;</span> Book Online
+                         </button>
+                         <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                             <span class="lucide mr-1 text-xs">&#xea1a;</span> Call Now
+                         </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="health-hub" class="app-section bg-white p-6 rounded-lg shadow">
+             <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
+                 <span class="lucide mr-2 text-red-500">&#xe971;</span> Pet Health Hub
+             </h2>
+             <button class="mb-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                 <span class="lucide mr-2">&#xea22;</span> Add New Pet Profile </button>
+
+             <h3 class="text-xl font-semibold mb-3 text-gray-700">Your Pets</h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                     <div class="flex items-center mb-3">
+                         <img src="https://placehold.co/60x60/e2e8f0/cbd5e0?text=Buddy" alt="Pet Photo" class="w-12 h-12 rounded-full mr-3 object-cover">
+                         <div>
+                             <h4 class="font-semibold text-lg text-gray-800">Buddy</h4>
+                             <p class="text-gray-600 text-sm">Golden Retriever, 3 years old</p>
+                         </div>
+                     </div>
+                     <p class="text-sm text-gray-700 mb-1"><strong class="font-medium">Vaccinations:</strong> Due Soon (Rabies Booster)</p>
+                     <p class="text-sm text-gray-700 mb-3"><strong class="font-medium">Last Visit:</strong> 2025-01-15 (Annual Checkup)</p>
+                     <button class="w-full text-center px-3 py-1.5 border border-indigo-300 text-xs font-medium rounded shadow-sm text-indigo-700 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                         View Full Health Record
+                     </button>
+                 </div>
+                 <div class="border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                     <div class="flex items-center mb-3">
+                         <img src="https://placehold.co/60x60/fef3c7/fde68a?text=Luna" alt="Pet Photo" class="w-12 h-12 rounded-full mr-3 object-cover">
+                         <div>
+                             <h4 class="font-semibold text-lg text-gray-800">Luna</h4>
+                             <p class="text-gray-600 text-sm">Domestic Shorthair Cat, 1 year old</p>
+                         </div>
+                     </div>
+                     <p class="text-sm text-gray-700 mb-1"><strong class="font-medium">Vaccinations:</strong> Up to Date</p>
+                     <p class="text-sm text-gray-700 mb-3"><strong class="font-medium">Last Visit:</strong> 2024-11-01 (Spaying)</p>
+                     <button class="w-full text-center px-3 py-1.5 border border-indigo-300 text-xs font-medium rounded shadow-sm text-indigo-700 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                         View Full Health Record
+                     </button>
+                 </div>
+             </div>
+        </section>
+
+        <section id="care-schedule" class="app-section bg-white p-6 rounded-lg shadow">
+             <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
+                 <span class="lucide mr-2 text-blue-500">&#xe8b5;</span> Daily Care Schedule & Reminders
+             </h2>
+
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div>
+                     <h3 class="text-lg font-semibold mb-2 text-gray-700">Feeding Schedule</h3>
+                     <div class="space-y-3 mb-4">
+                         <div>
+                             <label for="feed-time-1" class="block text-sm font-medium text-gray-700">Morning Feeding Time</label>
+                             <input type="time" id="feed-time-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" value="08:00">
+                         </div>
+                         <div>
+                             <label for="feed-time-2" class="block text-sm font-medium text-gray-700">Evening Feeding Time</label>
+                             <input type="time" id="feed-time-2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" value="18:00">
+                         </div>
+                         <div>
+                             <label for="food-type" class="block text-sm font-medium text-gray-700">Food Type/Notes</label>
+                             <input type="text" id="food-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" placeholder="e.g., 1 cup Royal Canin Puppy">
+                         </div>
+                     </div>
+                     <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                         Save Feeding Schedule
+                     </button>
+                 </div>
+
+                 <div>
+                     <h3 class="text-lg font-semibold mb-2 text-gray-700">Walk Schedule</h3>
+                     <div class="space-y-3 mb-4">
+                         <div>
+                             <label for="walk-time-1" class="block text-sm font-medium text-gray-700">Morning Walk Time</label>
+                             <input type="time" id="walk-time-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" value="07:00">
+                         </div>
+                         <div>
+                             <label for="walk-time-2" class="block text-sm font-medium text-gray-700">Evening Walk Time</label>
+                             <input type="time" id="walk-time-2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2" value="19:00">
+                         </div>
+                     </div>
+                     <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                         Save Walk Schedule
+                     </button>
+                 </div>
+             </div>
+
+             <div class="mt-6 border-t pt-4">
+                 <h3 class="text-lg font-semibold mb-2 text-gray-700">Upcoming Reminders</h3>
+                 <ul class="list-disc list-inside space-y-1 text-gray-600">
+                     <li>Today 6:00 PM: Evening Feeding (Buddy & Luna)</li>
+                     <li>Today 7:00 PM: Evening Walk (Buddy)</li>
+                     <li>April 10, 2025: Rabies Booster Due (Buddy)</li>
+                 </ul>
+             </div>
+        </section>
+
+        <section id="adoption" class="app-section bg-white p-6 rounded-lg shadow">
+             <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
+                 <span class="lucide mr-2 text-teal-500">&#xe97a;</span> Adoption & Rehoming
+             </h2>
+             <div class="flex space-x-4 mb-4">
+                 <button class="flex-1 inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                     <span class="lucide mr-2">&#xeace;</span> Find a Pet to Adopt
+                 </button>
+                 <button class="flex-1 inline-flex justify-center items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                     <span class="lucide mr-2">&#xea22;</span> List a Pet for Adoption/Sale
+                 </button>
+             </div>
+
+             <h3 class="text-xl font-semibold mb-3 text-gray-700">Pets Available Nearby (Siliguri Area)</h3>
+             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                     <img src="https://placehold.co/400x300/e0f2fe/0ea5e9?text=Kittens!" alt="Pet for adoption" class="w-full h-48 object-cover">
+                     <div class="p-4">
+                         <h4 class="font-semibold text-lg mb-1">Adorable Kittens (Adoption)</h4>
+                         <p class="text-sm text-gray-600 mb-2">2 Months old, playful & healthy. Looking for loving homes.</p>
+                         <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Siliguri</span>
+                         <button class="mt-3 w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700">
+                             Contact Owner
+                         </button>
+                     </div>
+                 </div>
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                     <img src="https://placehold.co/400x300/dcfce7/16a34a?text=Lab+Puppy" alt="Pet for sale" class="w-full h-48 object-cover">
+                     <div class="p-4">
+                         <h4 class="font-semibold text-lg mb-1">Labrador Puppy (Sale)</h4>
+                         <p class="text-sm text-gray-600 mb-2">Purebred, KCI registered, vaccinated. Male, 3 months old.</p>
+                         <span class="inline-block bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Near Matigara</span>
+                         <button class="mt-3 w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700">
+                             Contact Seller
+                         </button>
+                     </div>
+                 </div>
+                  <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                     <img src="https://placehold.co/400x300/fee2e2/dc2626?text=Indie+Dog" alt="Pet for adoption" class="w-full h-48 object-cover">
+                     <div class="p-4">
+                         <h4 class="font-semibold text-lg mb-1">Friendly Indie Dog (Adoption)</h4>
+                         <p class="text-sm text-gray-600 mb-2">Approx 1 year old, female, sterilized & vaccinated. Very affectionate.</p>
+                         <span class="inline-block bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Siliguri Town</span>
+                         <button class="mt-3 w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-teal-600 hover:bg-teal-700">
+                             Contact Rescuer
+                         </button>
+                     </div>
+                 </div>
+             </div>
+             <p class="text-xs text-gray-500 mt-4">*PetPal Connect encourages responsible pet ownership and adoption. Please verify all details before proceeding.</p>
+        </section>
+
+        <section id="store" class="app-section bg-white p-6 rounded-lg shadow">
+             <h2 class="text-2xl font-semibold mb-4 text-gray-800 flex items-center">
+                 <span class="lucide mr-2 text-amber-500">&#xeaf9;</span> Pet Store
+             </h2>
+             <div class="mb-4">
+                 <label for="store-search" class="sr-only">Search Products</label>
+                 <div class="flex rounded-md shadow-sm">
+                     <input type="text" id="store-search" class="flex-1 block w-full rounded-none rounded-l-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2" placeholder="Search for food, toys, accessories...">
+                     <button class="inline-flex items-center px-4 py-2 border border-l-0 border-gray-300 bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-r-md">
+                         <span class="lucide">&#xeace;</span> </button>
+                 </div>
+             </div>
+             <div class="mb-4 flex space-x-2 overflow-x-auto pb-2">
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-indigo-100 text-indigo-700 whitespace-nowrap">All</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Dog Food</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Cat Food</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Toys</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Accessories</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Grooming</button>
+                 <button class="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 whitespace-nowrap">Health</button>
+             </div>
+
+             <h3 class="text-xl font-semibold mb-3 text-gray-700">Featured Products</h3>
+              <p class="text-sm text-green-600 mb-3 font-medium">⚡ Fast Delivery Available in Siliguri!</p>
+             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                     <img src="https://placehold.co/300x200/f3f4f6/9ca3af?text=Dog+Food" alt="Product Image" class="w-full h-40 object-cover">
+                     <div class="p-4 flex flex-col flex-grow">
+                         <h4 class="font-semibold text-base mb-1 flex-grow">Premium Dog Food - Chicken</h4>
+                         <p class="text-sm text-gray-500 mb-2">1.5 kg Bag</p>
+                         <p class="font-semibold text-lg text-gray-800 mb-3">₹ 850</p>
+                         <button class="mt-auto w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                             <span class="lucide text-xs mr-1">&#xe891;</span> Add to Cart </button>
+                     </div>
+                 </div>
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                     <img src="https://placehold.co/300x200/f3f4f6/9ca3af?text=Cat+Toy" alt="Product Image" class="w-full h-40 object-cover">
+                     <div class="p-4 flex flex-col flex-grow">
+                         <h4 class="font-semibold text-base mb-1 flex-grow">Interactive Feather Wand Cat Toy</h4>
+                         <p class="text-sm text-gray-500 mb-2">Keeps cats engaged</p>
+                         <p class="font-semibold text-lg text-gray-800 mb-3">₹ 250</p>
+                         <button class="mt-auto w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                              <span class="lucide text-xs mr-1">&#xe891;</span> Add to Cart
+                         </button>
+                     </div>
+                 </div>
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                     <img src="https://placehold.co/300x200/f3f4f6/9ca3af?text=Leash" alt="Product Image" class="w-full h-40 object-cover">
+                     <div class="p-4 flex flex-col flex-grow">
+                         <h4 class="font-semibold text-base mb-1 flex-grow">Durable Nylon Dog Leash - Red</h4>
+                          <p class="text-sm text-gray-500 mb-2">Medium Size, 5ft</p>
+                         <p class="font-semibold text-lg text-gray-800 mb-3">₹ 400</p>
+                         <button class="mt-auto w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                              <span class="lucide text-xs mr-1">&#xe891;</span> Add to Cart
+                         </button>
+                     </div>
+                 </div>
+                 <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                     <img src="https://placehold.co/300x200/f3f4f6/9ca3af?text=Pet+Bed" alt="Product Image" class="w-full h-40 object-cover">
+                     <div class="p-4 flex flex-col flex-grow">
+                         <h4 class="font-semibold text-base mb-1 flex-grow">Soft Plush Pet Bed - Grey</h4>
+                         <p class="text-sm text-gray-500 mb-2">Comfortable & Washable</p>
+                         <p class="font-semibold text-lg text-gray-800 mb-3">₹ 1200</p>
+                         <button class="mt-auto w-full text-center px-3 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                              <span class="lucide text-xs mr-1">&#xe891;</span> Add to Cart
+                         </button>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 mt-12 py-6">
+        <div class="container mx-auto px-4 text-center text-sm">
+            &copy; 2025 PetPal Connect. All rights reserved. Serving pet owners in Siliguri and beyond.
+            <div class="mt-2">
+                <a href="#" class="hover:text-white mx-2">Privacy Policy</a> |
+                <a href="#" class="hover:text-white mx-2">Terms of Service</a> |
+                <a href="#" class="hover:text-white mx-2">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for Tab Navigation and Mobile Menu
+
+        // Get all navigation links (desktop and mobile) and sections
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+        const sections = document.querySelectorAll('.app-section');
+        const mobileMenuButton = document.querySelector('.md\\:hidden button'); // Selects the button inside the mobile menu div
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Function to switch active section
+        function setActiveSection(targetId) {
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the target section
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update active state for desktop links
+            navLinks.forEach(link => {
+                if (link.dataset.target === targetId) {
+                    link.classList.add('active', 'bg-indigo-600', 'text-white'); // Ensure active style is applied
+                    link.classList.remove('text-gray-700', 'hover:bg-indigo-100', 'hover:text-indigo-700');
+                } else {
+                    link.classList.remove('active', 'bg-indigo-600', 'text-white');
+                     link.classList.add('text-gray-700', 'hover:bg-indigo-100', 'hover:text-indigo-700'); // Ensure inactive style is applied
+                }
+            });
+
+             // Update active state for mobile links (optional visual cue)
+             mobileNavLinks.forEach(link => {
+                 if (link.dataset.target === targetId) {
+                     link.classList.add('bg-indigo-100'); // Example: Highlight active mobile link
+                 } else {
+                     link.classList.remove('bg-indigo-100');
+                 }
+             });
+
+             // Close mobile menu after selection (if open)
+             if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+             }
+        }
+
+        // Add click listeners to desktop navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default button behavior
+                const targetId = link.dataset.target;
+                setActiveSection(targetId);
+            });
+        });
+
+         // Add click listeners to mobile navigation links
+         mobileNavLinks.forEach(link => {
+             link.addEventListener('click', (event) => {
+                 event.preventDefault(); // Prevent default button behavior
+                 const targetId = link.dataset.target;
+                 setActiveSection(targetId);
+             });
+         });
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Set the initial active section (Vet Finder) on page load
+        document.addEventListener('DOMContentLoaded', () => {
+           setActiveSection('vet-finder'); // Ensure the first tab is active visually
+        });
+
+        // --- Placeholder functions for button clicks ---
+        document.body.addEventListener('click', function(event) {
+            const targetButton = event.target.closest('button'); // Find the closest button clicked
+            if (!targetButton) return; // Exit if the click wasn't on or inside a button
+
+            // Example actions based on button text or class
+            if (targetButton.textContent.includes('Find Vets Near Me')) {
+                console.log('Action: Finding vets near user location...');
+                // In a real app, this would trigger geolocation API
+            } else if (targetButton.textContent.includes('Book Online')) {
+                 console.log('Action: Opening booking modal/page for vet...');
+            } else if (targetButton.textContent.includes('Call Now')) {
+                 console.log('Action: Initiating call to vet (would need tel: link)...');
+            } else if (targetButton.textContent.includes('Add New Pet Profile')) {
+                 console.log('Action: Opening form to add a new pet...');
+            } else if (targetButton.textContent.includes('View Full Health Record')) {
+                 console.log('Action: Navigating to detailed health record page for pet...');
+            } else if (targetButton.textContent.includes('Save Feeding Schedule')) {
+                 console.log('Action: Saving feeding schedule data...');
+            } else if (targetButton.textContent.includes('Save Walk Schedule')) {
+                 console.log('Action: Saving walk schedule data...');
+            } else if (targetButton.textContent.includes('Find a Pet to Adopt')) {
+                 console.log('Action: Filtering adoption listings...');
+            } else if (targetButton.textContent.includes('List a Pet')) {
+                 console.log('Action: Opening form to list a pet...');
+            } else if (targetButton.textContent.includes('Contact Owner') || targetButton.textContent.includes('Contact Seller') || targetButton.textContent.includes('Contact Rescuer')) {
+                 console.log('Action: Opening contact form/modal...');
+            } else if (targetButton.textContent.includes('Add to Cart')) {
+                 console.log('Action: Adding product to cart...');
+                 // Simple visual feedback (optional)
+                 targetButton.innerHTML = '<span class="lucide text-xs mr-1">&#xe8df;</span> Added!'; // Check icon
+                 setTimeout(() => {
+                     targetButton.innerHTML = '<span class="lucide text-xs mr-1">&#xe891;</span> Add to Cart';
+                 }, 1500); // Reset after 1.5 seconds
+            }
+            // Add more specific button checks if needed using IDs or classes
+        });
+
+
+    </script>
+
+</body>
+</html>
